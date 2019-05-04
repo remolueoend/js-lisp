@@ -29,7 +29,7 @@ const cdr = [deffun, 1, list => list.slice(1)]
 /**
  * Maps and returns each element of the given list using the given transform function.
  */
-const map = [deffun, 2, (transform, list) => [R.map(transform, list)]]
+const map = [deffun, 2, (transform, list) => R.map(transform, list)]
 
 /**
  * Joins the given list using the provided separator
