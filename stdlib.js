@@ -19,15 +19,38 @@ const ifOrElse = [
 /**
  * Function returning the first element of a given list (head)
  */
-const car = [deffun, 1, list => [list[0]]]
+const car = [deffun, 1, list => list[0]]
 
-const map = [deffun, 2, (mapper, list) => [R.map(mapper, list)]]
+/**
+ * Function returning the tail of the given list.
+ */
+const cdr = [deffun, 1, list => list.slice(1)]
 
+/**
+ * Maps and returns each element of the given list using the given transform function.
+ */
+const map = [deffun, 2, (transform, list) => [R.map(transform, list)]]
+
+/**
+ * Joins the given list using the provided separator
+ */
 const join = [deffun, 2, (separator, list) => list.join(separator)]
+
+/**
+ * Throws the given error.
+ */
+const raise = [
+  deffun,
+  1,
+  error => {
+    throw error
+  },
+]
 
 module.exports = {
   print,
   car,
+  cdr,
   map,
   ifOrElse,
   join,

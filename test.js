@@ -12,10 +12,7 @@ const test = [
 const testSuite = [
   deffun,
   2,
-  (desc, tests) => {
-    debugger
-    return [print, `${desc}:\n%s`, [join, "\n", [map, evalExp, tests]]]
-  },
+  (desc, ...tests) => [print, `${desc}:\n  %s`, [join, "\n  ", tests]],
 ]
 
 const execTests = testExpressions => testExpressions.map(evalExp)
