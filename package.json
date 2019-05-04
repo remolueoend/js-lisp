@@ -8,5 +8,8 @@
   "private": false,
   "dependencies": {
     "ramda": "^0.26.1"
+  },
+  "scripts": {
+      "test": "node tests/index.js"
   }
 }
