@@ -10,6 +10,7 @@
     "ramda": "^0.26.1"
   },
   "scripts": {
+      "start": "node index.js",
       "test": "node tests/index.js"
   }
 }
