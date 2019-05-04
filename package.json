@@ -1,0 +1,12 @@
+{
+  "name": "js-lisp",
+  "version": "0.0.1",
+  "description": "kind-of-LISP-expression interpreter in Javascript",
+  "main": "index.js",
+  "author": "remolueoend <remolueoend@noreply.users.github.com>",
+  "license": "GPLv3",
+  "private": false,
+  "dependencies": {
+    "ramda": "^0.26.1"
+  }
+}
