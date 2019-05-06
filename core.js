@@ -35,7 +35,7 @@ const evalExp = exp => {
  * The callback is expected to return an expression.
  *
  * @example
- * [def, 42, "foo", () => 0, ([a, b, c]) => [
+ * [def, 42, "foo", () => 0, (a, b, c) => [
  *    print(a, b, c) // 42, "foo", Function
  * ]]
  */

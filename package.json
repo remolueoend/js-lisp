@@ -6,11 +6,12 @@
   "author": "remolueoend <remolueoend@noreply.users.github.com>",
   "license": "GPLv3",
   "private": false,
+  "type": "module",
   "dependencies": {
     "ramda": "^0.26.1"
   },
   "scripts": {
-      "start": "node index.js",
-      "test": "node tests/index.js"
+    "start": "node index.js",
+    "test": "node tests/index.js"
   }
 }

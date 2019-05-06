@@ -7,16 +7,16 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Index",
+      "name": "Index",
       "program": "${workspaceFolder}/index.js",
       "console": "integratedTerminal"
     },
     {
-        "type": "node",
-        "request": "launch",
-        "name": "Launch All Tests",
-        "program": "${workspaceFolder}/tests/index.js",
-        "console": "integratedTerminal"
-      }
+      "type": "node",
+      "request": "launch",
+      "name": "All Tests",
+      "program": "${workspaceFolder}/tests/index.js",
+      "console": "integratedTerminal"
+    }
   ]
 }
