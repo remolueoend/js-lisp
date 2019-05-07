@@ -42,8 +42,8 @@ const sumList = [deffun, 1, list => [
 
 What if the evaluation routine (`evalExp`) could instead automate this transformation? Because our expressions are nothing else than plain Javascript arrays, this should be fairly easy:
 ```js
-const transformIfOrElse = [deffun, 1, ([cond, ifVal, elseVal]) => [
-    cond, () => ifVal, () => elseVal
+const transformIfOrElse = [deffun, 1, ([fn, cond, ifVal, elseVal]) => [
+    fn, cond, () => ifVal, () => elseVal
 ]]
 ```
 
