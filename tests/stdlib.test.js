@@ -1,6 +1,6 @@
 const { assert, test, testSuite } = require("../test")
-const { car, cdr, len, empty, reduce } = require("../stdlib")
-const { add } = require("../helpers")
+const { car, cdr, len, empty, reduce, map } = require("../stdlib")
+const { add, square } = require("../helpers")
 
 const car_tests = [
   testSuite,
@@ -62,6 +62,28 @@ const reduce_tests = [
     "reduces the given list using the provided reducer",
     [assert.isEqual, 6, [reduce, add, [1, 2, 3], 0]],
   ],
+  [
+    test,
+    "returns the initial value if an empty list is given",
+    [assert.isEqual, 42, [reduce, add, [], 42]],
+  ],
 ]
 
-module.exports = [car_tests, cdr_tests, len_tests, empty_tests, reduce_tests]
+const map_tests = [
+  testSuite,
+  "stdlib::map",
+  [
+    test,
+    "transforms the given list using the transform function",
+    [assert.isEqual, [4, 9, 16], [map, square, [2, 3, 4]]],
+  ],
+]
+
+module.exports = [
+  car_tests,
+  cdr_tests,
+  len_tests,
+  empty_tests,
+  reduce_tests,
+  map_tests,
+]

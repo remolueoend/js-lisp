@@ -63,22 +63,29 @@ const def = function() {
  * curried(1)(2, 3) === 6
  * curried(1, 2, 3) === 6
  */
-const curryN = (argCount, fn) => (...args) =>
-  args.length < argCount
-    ? curryN(argCount - args.length, (...rest) => fn(...args, ...rest))
-    : fn(...args)
+const curryN = function curryN(argCount, fn) {
+  return function curried(...args) {
+    return args.length < argCount
+      ? curryN(argCount - args.length, (...rest) => fn(...args, ...rest))
+      : fn(...args)
+  }
+}
 
 /**
  * Allows defining a function as part of an expression.
  * Expects a function body accepting any kind of arguments.
  * The provided function body is expected to return an expression
  *
+ * The provided function body is not called,
+ * until the number of expected arguments is given (auto-curried).
+ *
+ * @param {number} number of expected arguments
  * @param {Function} body Function body to apply
  *
  * @example
  * caar = [deffun, list => [car, [car, list]]]
  */
-const deffun = (argCount, body) => {
+const deffun = function deffun(argCount, body) {
   const curried = curryN(argCount, body)
   return function(...args) {
     return evalExp(curried(...args))

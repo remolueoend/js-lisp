@@ -1,5 +1,6 @@
+const util = require("util")
 const { evalExp, deffun } = require("./core")
-const R = require("ramda")
+const { equals: ramda_equals } = require("ramda")
 
 const or = [deffun, 2, (v1, v2) => v1 || v2]
 const and = [deffun, 2, (v1, v2) => v1 && v2]
@@ -18,7 +19,16 @@ const print = [deffun, 1, (...args) => [or, [console.log, ...args], args]]
 /**
  * Returns whether or not the given two values are referentially equal.
  */
-const equal = [deffun, 2, (v1, v2) => R.equals(v1, v2)]
+const equal = [
+  deffun,
+  2,
+  function equal(v1, v2) {
+    return ramda_equals(v1, v2)
+  },
+]
+
+const gt = [deffun, 2, (v1, v2) => v1 > v2]
+const ls = [deffun, 2, (v1, v2) => v1 < v2]
 
 /**
  * Returns either the given `ifVal` or `elseVal`, based on the boolish result
@@ -27,7 +37,9 @@ const equal = [deffun, 2, (v1, v2) => R.equals(v1, v2)]
 const ifOrElse = [
   deffun,
   3,
-  (cond, ifVal, elseVal) => (cond ? ifVal() : elseVal()),
+  function ifOrElse(cond, ifVal, elseVal) {
+    return evalExp(cond ? ifVal() : elseVal())
+  },
 ]
 
 /**
@@ -40,10 +52,12 @@ const car = [deffun, 1, list => list[0]]
  */
 const cdr = [deffun, 1, list => list.slice(1)]
 
+const at = [deffun, 2, (index, list) => list[index]]
+
 /**
  * Prepends the given element to the provided list.
  */
-const prepend = [deffun, (list, element) => [element, ...list]]
+const prepend = [deffun, 2, (list, element) => [element, ...list]]
 
 /**
  * Returns the length of a given list
@@ -62,44 +76,57 @@ const empty = [deffun, 1, list => [equal, 0, [len, list]]]
 const reduce = [
   deffun,
   2,
-  (reducer, list, initialValue) => [
-    ifOrElse,
-    [empty, list],
-    () => initialValue,
-    () => [reducer, [reduce, reducer, [cdr, list]], [car, list], initialValue],
-  ],
+  function reduceFn(reducer, list, initialValue) {
+    return [
+      ifOrElse,
+      [empty, list],
+      () => initialValue,
+      () => [
+        reducer,
+        [reduce, reducer, [cdr, list], initialValue],
+        [car, list],
+      ],
+    ]
+  },
 ]
 
-const map2 = [
+const map = [
   deffun,
-  (transform, list) => [
-    reduce,
-    (acc, elem) => [prepend, acc, [transform, elem]],
-    [],
-  ],
+  2,
+  function(transform, list) {
+    return [reduce, (acc, elem) => [prepend, acc, [transform, elem]], list, []]
+  },
 ]
-
-/**
- * Maps and returns each element of the given list using the given transform function.
- */
-const map = [deffun, 2, (transform, list) => R.map(transform, list)]
 
 /**
  * Joins the given list using the provided separator
  */
 const join = [deffun, 2, (separator, list) => list.join(separator)]
 
+const format = [
+  deffun,
+  2,
+  function format(str, ...args) {
+    return util.format(str, ...args)
+  },
+]
 
 module.exports = {
+  and,
+  or,
   print,
   car,
   cdr,
+  at,
   empty,
   equal,
+  gt,
+  ls,
   len,
   map,
   ifOrElse,
   join,
   reduce,
   not,
+  format,
 }

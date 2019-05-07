@@ -12,6 +12,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "node tests/index.js"
+    "start.watch": "find . -name \"*.js\" | entr -c node index.js",
+    "test": "node tests/index.js",
+    "test.watch": "find . -name \"*.js\" | entr -c node tests/index.js"
   }
 }

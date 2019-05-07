@@ -1,6 +1,12 @@
-const {deffun} = require("./core")
+const { deffun } = require("./core")
 
-const add = [deffun, 2, (a, b) => a + b]
+const add = [
+  deffun,
+  2,
+  function add(a, b) {
+    return a + b
+  },
+]
 const sub = [deffun, 2, (a, b) => a - b]
 const multiply = [deffun, 2, (a, b) => a * b]
 
@@ -15,5 +21,5 @@ module.exports = {
   square,
   add,
   sub,
-  multiply
+  multiply,
 }
