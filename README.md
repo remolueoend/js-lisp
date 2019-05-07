@@ -15,11 +15,11 @@ Check out `./index.js` for some basic examples.
 Let's assume we want to define a function which accepts a list of numeric values and returns their sum.
 To solve this recursively, we could just add the head of the list to the result of the recursive call for the tail of the same list. If the list is empty, we return `0`:
 ```js
-const addList = [deffun, 1, list => [
+const sumList = [deffun, 1, list => [
     ifOrElse,
     [empty, list],
     0,
-    [add, [car, list], [addList, [cdr, list]]]
+    [add, [car, list], [sumList, [cdr, list]]]
 ]]
 ```
 
@@ -30,13 +30,13 @@ const ifOrElse = [deffun, 3, (cond, ifVal, elseVal) => [
 ]
 ```
 
-Our `addList` function won't work. Instead it fails with `RangeError: Maximum call stack size exceeded`. This happens because when evaluating the resulting expression of `addList`, `ifVal` and `elseVal` are always evaluated regardless of the condition, leaving us with an indefinitely recurring function. To avoid this error, we have to provide separate arrow functions for `ifVal` and `elseVal` to delay the evaluation:
+Our `sumList` function won't work. Instead it fails with `RangeError: Maximum call stack size exceeded`. This happens because when evaluating the resulting expression of `addList`, `ifVal` and `elseVal` are always evaluated regardless of the condition, leaving us with an indefinitely recurring function. To avoid this error, we have to provide separate arrow functions for `ifVal` and `elseVal` to delay the evaluation:
 ```js
-const addList = [deffun, 1, list => [
+const sumList = [deffun, 1, list => [
     ifOrElse,
     [empty, list],
     () => 0,
-    () => [add, [car, list], [addList, [cdr, list]]]
+    () => [add, [car, list], [sumList, [cdr, list]]]
 ]]
 ```
 
