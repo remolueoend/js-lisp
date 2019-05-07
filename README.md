@@ -10,7 +10,7 @@ This project might help me to understand the advantages of Lisp-related language
 
 Check out `./index.js` for some basic examples.
 
-## Further things to try
+## Other things to try
 
 Let's assume we want to define a function which accepts a list of numeric values and returns their sum.
 To solve this recursively, we could just add the head of the list to the result of the recursive call for the tail of the same list. If the list is empty, we return `0`:
@@ -26,7 +26,7 @@ const addList = [deffun, 1, list => [
 `ifOrElse` is defined as:
 ```js
 const ifOrElse = [deffun, 3, (cond, ifVal, elseVal) => [
-    or, [and, cond, ifVal] // le's just ignore all flaws of these simple comparisons
+    or, [and, cond, ifVal], elseVal // le's just ignore all flaws of these simple comparisons
 ]
 ```
 
@@ -42,8 +42,10 @@ const addList = [deffun, 1, list => [
 
 What if the evaluation routine (`evalExp`) could instead automate this transformation? Because our expressions are nothing else than plain Javascript arrays, this should be fairly easy:
 ```js
-const [cond, ifVal, elseVal] = expression
-return [cond, () => ifVal, () => elseVal]
+const transformIfOrElse = expression => {
+    const [cond, ifVal, elseVal] = expression
+    return [cond, () => ifVal, () => elseVal]
+}
 ```
 
-**➡ We need some kind of decorators on top of expressions allowing us to declare transformations executed before evaluation .**
+**➡ We need some kind of function decorators on expressions allowing us to declare transformations executed before evaluation .**
