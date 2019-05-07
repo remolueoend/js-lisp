@@ -26,11 +26,11 @@ const sumList = [deffun, 1, list => [
 `ifOrElse` is defined as:
 ```js
 const ifOrElse = [deffun, 3, (cond, ifVal, elseVal) => [
-    or, [and, cond, ifVal], elseVal // le's just ignore all flaws of these simple comparisons
+    or, [and, cond, ifVal], elseVal // let's just ignore all flaws of these simple comparisons
 ]
 ```
 
-Our `sumList` function won't work. Instead it fails with `RangeError: Maximum call stack size exceeded`. This happens because when evaluating the resulting expression of `addList`, `ifVal` and `elseVal` are always evaluated regardless of the condition, leaving us with an indefinitely recurring function. To avoid this error, we have to provide separate arrow functions for `ifVal` and `elseVal` to delay the evaluation:
+Our `sumList` function won't work. Instead it fails with `RangeError: Maximum call stack size exceeded`. This happens because when evaluating the resulting expression of `sumList`, `ifVal` and `elseVal` are always evaluated regardless of the condition, leaving us with an indefinitely recurring function. To avoid this error, we have to provide separate arrow functions for `ifVal` and `elseVal` to delay the evaluation:
 ```js
 const sumList = [deffun, 1, list => [
     ifOrElse,
