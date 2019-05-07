@@ -47,4 +47,4 @@ const transformIfOrElse = [deffun, 1, ([fn, cond, ifVal, elseVal]) => [
 ]]
 ```
 
-**➡ We need some kind of function decorators on expressions allowing us to declare transformations executed before evaluation .**
+**➡ We need some kind of function decorators on expressions allowing us to declare transformations applied before evaluation .**
