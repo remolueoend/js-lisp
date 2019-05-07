@@ -6,9 +6,9 @@ const R = require("ramda")
  * Returns if the two given values are equal.
  *
  * @example
- * [isEqual, [1, 2, 3], [1, 2,3]] // true
+ * [isEqual, [1, 2, 3], [1, 2, 3]] // [true, true]
+ * [isEqual, 1, 2] // [fale, "expected 1 to equal 2"]
  */
-const isEqual1 = [deffun, 2, (v1, v2) => [R.equals, v1, v2]]
 const isEqual = [
   deffun,
   2,
