@@ -1,4 +1,4 @@
-# JS-LISP
+# LISPY-JS
 
 Fun-project for playing around with Lisp-alike array-based Javascript expressions.
 
