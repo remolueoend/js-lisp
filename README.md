@@ -42,10 +42,9 @@ const addList = [deffun, 1, list => [
 
 What if the evaluation routine (`evalExp`) could instead automate this transformation? Because our expressions are nothing else than plain Javascript arrays, this should be fairly easy:
 ```js
-const transformIfOrElse = expression => {
-    const [cond, ifVal, elseVal] = expression
-    return [cond, () => ifVal, () => elseVal]
-}
+const transformIfOrElse = [deffun, 1, ([cond, ifVal, elseVal]) => [
+    cond, () => ifVal, () => elseVal
+]]
 ```
 
 **➡ We need some kind of function decorators on expressions allowing us to declare transformations executed before evaluation .**
