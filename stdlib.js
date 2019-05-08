@@ -60,6 +60,11 @@ const at = [deffun, 2, (index, list) => list[index]]
 const prepend = [deffun, 2, (list, element) => [element, ...list]]
 
 /**
+ * Returns a list with the given items
+ */
+const list = [deffun, 1, (...items) => items]
+
+/**
  * Returns the length of a given list
  */
 const len = [deffun, 1, list => list.length]
@@ -125,6 +130,7 @@ module.exports = {
   len,
   map,
   ifOrElse,
+  list,
   join,
   reduce,
   not,

@@ -11,12 +11,14 @@ const evalExp = exp => {
     return exp
   }
 
+  const transformedExp = exp[0].transform ? exp[0].transform(exp) : exp
+
   // the first element of an expression could itself be
   // an expression which has to be evaluated first.
   // example:
   // const car = [deffun, list => [head, list]]
   // evalExp([car, [1, 2, 3]])
-  const expValues = exp.map(evalExp)
+  const expValues = transformedExp.map(evalExp)
 
   const head = expValues[0]
   if (typeof head !== "function") {
