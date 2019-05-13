@@ -1,4 +1,26 @@
 const { last, head } = require("ramda")
+const { Some, None } = require("opty")
+
+/**
+ * Returns wether or not the given expression is a non-empty list
+ *
+ * @param {*} exp expression to evaluate
+ */
+const isListExpression = exp => exp instanceof Array && exp.length
+
+/**
+ * Returns an option wrapping the function leading a list expression
+ * The first item of the expressin is evaluated before returned.
+ *
+ * @param {None|Some} option
+ */
+const getExpressionFn = exp => {
+  if (!isListExpression(exp)) {
+    return None
+  }
+  const head = evalExp(exp[0])
+  return typeof head === "function" ? Some(head) : None
+}
 
 /**
  * Evaluates the given expression and returns the result of it.
@@ -7,27 +29,24 @@ const { last, head } = require("ramda")
  *  - a Lisp like list-based expression: `[map, square, [1, 2, 3]]`
  */
 const evalExp = exp => {
-  if (!(exp instanceof Array) || !exp.length) {
+  if (!isListExpression(exp)) {
     return exp
   }
 
-  const transformedExp = exp[0].transform ? exp[0].transform(exp) : exp
+  // head of the expression. Evaluate this first to
+  // check its type before evaulating the expression arguments.
+  const head = evalExp(exp[0])
 
-  // the first element of an expression could itself be
-  // an expression which has to be evaluated first.
-  // example:
-  // const car = [deffun, list => [head, list]]
-  // evalExp([car, [1, 2, 3]])
-  const expValues = transformedExp.map(evalExp)
+  // evaluate the arguments of the expression
+  const expArgs = exp.slice(1).map(evalExp)
 
-  const head = expValues[0]
   if (typeof head !== "function") {
     // return the original expression as it is
     return exp
   }
 
   // call the expression head with the resolved expression values
-  return head.apply(this, expValues.slice(1))
+  return head.apply(this, expArgs)
 }
 
 /**
@@ -94,9 +113,15 @@ const deffun = function deffun(argCount, body) {
   }
 }
 
+const defmac = function defmac(macro) {
+  return macro
+}
+
 module.exports = {
   evalExp,
   curryN,
   deffun,
   def,
+  defmac,
+  isListExpression,
 }

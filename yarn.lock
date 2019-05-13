@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+opty@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/opty/-/opty-0.1.2.tgz#a97d85225594de22381f46a648faa29e7cf6fb98"
+  integrity sha1-qX2FIlWU3iI4H0amSPqinnz2+5g=
+
 ramda@^0.26.1:
   version "0.26.1"
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
